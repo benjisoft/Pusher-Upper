@@ -11,7 +11,7 @@ import UserNotifications
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-    @State var text1Shown: Bool = false
+    @State var text1Shown: Bool = true
     @State var text2Shown: Bool = false
 
     var body: some View {
