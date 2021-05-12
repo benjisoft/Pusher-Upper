@@ -7,71 +7,50 @@
 
 import SwiftUI
 import CoreData
+import UserNotifications
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
+    @State var text1Shown: Bool = false
+    @State var text2Shown: Bool = false
 
     var body: some View {
-        List {
-            ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-            }
-            .onDelete(perform: deleteItems)
-        }
-        .toolbar {
-            #if os(iOS)
-            EditButton()
-            #endif
+        VStack {
+            Text("Thank you for using the Push Upper. ")
+            Text("You will get a notification in one hour to do your excersises.").opacity(text1Shown ? 1 : 0)
+            Text("This app will not function without notification permission. Please go to settings and enable notifications.").opacity(text2Shown ? 1 : 0)
+            
+            Button("Turn on Notifications") {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                    if success {
+                        print("Notifications Accepted!")
+                        let content = UNMutableNotificationContent()
+                        content.title = "Do your excersise!"
+                        content.subtitle = "Do it now!"
+                        content.sound = UNNotificationSound.default
 
-            Button(action: addItem) {
-                Label("Add Item", systemImage: "plus")
+                        // show this notification five seconds from now
+                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3600, repeats: true)
+
+                        // choose a random identifier
+                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+
+                        // add our notification request
+                        UNUserNotificationCenter.current().add(request)
+                        print("Notification Scheduled")
+                        text1Shown = true
+                    } else if let error = error {
+                        text2Shown = true
+                        print(error.localizedDescription)
+                    }
+                }
             }
-        }
+        }.padding()
+    }
+    
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
 
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-}
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

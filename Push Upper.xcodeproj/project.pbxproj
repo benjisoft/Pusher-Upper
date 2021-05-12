@@ -19,6 +19,8 @@
 		B1D0EE46264C3D80006CDAE4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D0EE17264C3D7F006CDAE4 /* Persistence.swift */; };
 		B1D0EE47264C3D80006CDAE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1D0EE18264C3D80006CDAE4 /* Assets.xcassets */; };
 		B1D0EE48264C3D80006CDAE4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1D0EE18264C3D80006CDAE4 /* Assets.xcassets */; };
+		B1D0EE5C264C4CCF006CDAE4 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D0EE5B264C4CCF006CDAE4 /* ViewManager.swift */; };
+		B1D0EE5D264C4CCF006CDAE4 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D0EE5B264C4CCF006CDAE4 /* ViewManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		B1D0EE38264C3D80006CDAE4 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1D0EE3C264C3D80006CDAE4 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		B1D0EE3E264C3D80006CDAE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1D0EE57264C40B8006CDAE4 /* Push Upper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Push Upper.entitlements"; sourceTree = "<group>"; };
+		B1D0EE5B264C4CCF006CDAE4 /* ViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,7 @@
 		B1D0EE0D264C3D7E006CDAE4 = {
 			isa = PBXGroup;
 			children = (
+				B1D0EE57264C40B8006CDAE4 /* Push Upper.entitlements */,
 				B1D0EE12264C3D7F006CDAE4 /* Shared */,
 				B1D0EE1F264C3D80006CDAE4 /* iOS */,
 				B1D0EE26264C3D80006CDAE4 /* macOS */,
@@ -109,6 +114,7 @@
 				B1D0EE17264C3D7F006CDAE4 /* Persistence.swift */,
 				B1D0EE18264C3D80006CDAE4 /* Assets.xcassets */,
 				B1D0EE13264C3D7F006CDAE4 /* Push_Upper.xcdatamodeld */,
+				B1D0EE5B264C4CCF006CDAE4 /* ViewManager.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -318,6 +324,7 @@
 			files = (
 				B1D0EE41264C3D80006CDAE4 /* Push_UpperApp.swift in Sources */,
 				B1D0EE45264C3D80006CDAE4 /* Persistence.swift in Sources */,
+				B1D0EE5C264C4CCF006CDAE4 /* ViewManager.swift in Sources */,
 				B1D0EE3F264C3D80006CDAE4 /* Push_Upper.xcdatamodeld in Sources */,
 				B1D0EE43264C3D80006CDAE4 /* ContentView.swift in Sources */,
 			);
@@ -329,6 +336,7 @@
 			files = (
 				B1D0EE42264C3D80006CDAE4 /* Push_UpperApp.swift in Sources */,
 				B1D0EE46264C3D80006CDAE4 /* Persistence.swift in Sources */,
+				B1D0EE5D264C4CCF006CDAE4 /* ViewManager.swift in Sources */,
 				B1D0EE40264C3D80006CDAE4 /* Push_Upper.xcdatamodeld in Sources */,
 				B1D0EE44264C3D80006CDAE4 /* ContentView.swift in Sources */,
 			);
@@ -482,6 +490,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Push Upper.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 372BSBP88C;
 				ENABLE_PREVIEWS = YES;
@@ -494,8 +504,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.xfour.Push-Upper";
 				PRODUCT_NAME = "Push Upper";
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 			};
 			name = Debug;
 		};
@@ -504,6 +516,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Push Upper.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 372BSBP88C;
 				ENABLE_PREVIEWS = YES;
@@ -516,8 +530,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.xfour.Push-Upper";
 				PRODUCT_NAME = "Push Upper";
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
