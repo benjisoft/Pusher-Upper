@@ -16,17 +16,18 @@ extension Color {
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.colorScheme) var colorScheme
     @State var text1Shown: Bool = true
     @State var text2Shown: Bool = false
     @State var showingSuccess: Bool = false
-    @State var showingError: Bool = false
+    @State var showingCancel: Bool = false
     @State var notifUUID: String = ""
 
     var body: some View {
         Color.bg.ignoresSafeArea().overlay(
             VStack {
-                Text("Pusher Upper").font(.title)
-                Image("Icon").resizable().scaledToFit()
+                Text("Pusher Upper").font(.largeTitle)
+                Image(colorScheme == .dark ? "DarkIcon" : "LightIcon").resizable().scaledToFit()
                 Text("Thank you for using the Push Upper. ").padding()
                 Text("You will get a notification in one hour to do your excersises.").opacity(text1Shown ? 1 : 0).multilineTextAlignment(.center)
                 Text("This app will not function without notification permission. Please go to settings and enable notifications.").opacity(text2Shown ? 1 : 0).multilineTextAlignment(.center)
@@ -59,14 +60,14 @@ struct ContentView: View {
                             }
                         }
                     }
-                }.alert(isPresented: $showingError) {
+                }.alert(isPresented: $showingSuccess) {
                     Alert(title: Text("Congrats!"), message: Text("You'll get notifications every hour to do more excersises."), dismissButton: .default(Text("Cheers Benji!")))
                 }.padding().background(Color.accented).foregroundColor(.bg).cornerRadius(15)
                 
                 Button("Turn off Notifications") {
                     UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                    showingError = true
-                }.alert(isPresented: $showingError) {
+                    showingCancel = true
+                }.alert(isPresented: $showingCancel) {
                     Alert(title: Text("Oops, sorry!"), message: Text("All notifications are now cancelled."), dismissButton: .default(Text("Damn it Benji!")))
                 }.padding().background(Color.accented).foregroundColor(.bg).cornerRadius(15)
             }.padding()
@@ -78,6 +79,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().previewDevice("iPhone SE (2nd generation)").preferredColorScheme(.dark).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView().preferredColorScheme(.dark).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
