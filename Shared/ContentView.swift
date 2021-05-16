@@ -17,7 +17,7 @@ extension Color {
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) var colorScheme
-    @State var text1Shown: Bool = true
+    @State var text1Shown: Bool = false
     @State var text2Shown: Bool = false
     @State var showingSuccess: Bool = false
     @State var showingCancel: Bool = false
@@ -45,7 +45,7 @@ struct ContentView: View {
                                 content.sound = UNNotificationSound.default
 
                                 // show this notification five seconds from now
-                                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
+                                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3600, repeats: true)
 
                                 // choose a random identifier
                                 let request = UNNotificationRequest(identifier: notifUUID, content: content, trigger: trigger)
